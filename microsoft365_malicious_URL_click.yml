@@ -1,5 +1,5 @@
 title: Potentially malicious URL click was detected
-id: 11b3a971-1027-4531-ae22-1f87051ad268
+id: ed5a70ef-a928-43dc-9f5d-4da88d10e0d3
 status: experimental
 description: Alert when A potentially malicious URL click was detected in O365
 author: Josh Nickels
