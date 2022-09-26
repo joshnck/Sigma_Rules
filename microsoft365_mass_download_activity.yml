@@ -1,0 +1,23 @@
+title: Mass download activity
+id: 11b3a971-1027-4531-ae22-1f87051ad268
+status: experimental
+description: Alert when a single user performs more than 30 downloads within 5 minutes from O365
+author: Josh Nickels
+date: 2022/9/26
+references:
+    - https://docs.microsoft.com/en-us/cloud-app-security/policy-template-reference
+logsource:
+    service: threat_management
+    product: m365
+detection:
+    selection:
+        eventSource: SecurityComplianceCenter
+        eventName: 'Extreme Data Download'
+        status: success
+    condition: selection
+falsepositives:
+    - Legitimate reasons for mass downloads
+level: medium
+tags:
+    - attack.exfiltration
+splunksigma:
