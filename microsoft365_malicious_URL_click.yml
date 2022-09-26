@@ -1,0 +1,23 @@
+title: Potentially malicious URL click was detected
+id: 11b3a971-1027-4531-ae22-1f87051ad268
+status: experimental
+description: Alert when A potentially malicious URL click was detected in O365
+author: Josh Nickels
+date: 2022/9/26
+references:
+    - https://learn.microsoft.com/en-us/microsoft-365/compliance/alert-policies?view=o365-worldwide
+logsource:
+    service: threat_management
+    product: m365
+detection:
+    selection:
+        eventSource: SecurityComplianceCenter
+        eventName: 'A potentially malicious URL click was detected'
+        status: Active
+    condition: selection
+falsepositives:
+    - Non-malicious URL or False Positive URL detection by Microsoft
+level: high
+tags:
+    - attack.initial_access
+    - attack.T1566.002
