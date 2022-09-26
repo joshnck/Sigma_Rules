@@ -13,7 +13,7 @@ detection:
     selection:
         eventSource: SecurityComplianceCenter
         eventName: 'A potentially malicious URL click was detected'
-        status: Active
+        status: Succeeded
     condition: selection
 falsepositives:
     - Non-malicious URL or False Positive URL detection by Microsoft
