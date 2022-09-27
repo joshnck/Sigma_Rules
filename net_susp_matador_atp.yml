@@ -1,0 +1,26 @@
+title: Matador ATP network activity
+id: 574b7061-e2dd-4be3-bd43-6f67de6c4775
+status: experimental
+description: Detects suspicious DNS queries related with SentinelOne's Matador ATP
+author: Josh Nickels
+date: 2022/9/27
+references:
+    - https://www.sentinelone.com/labs/the-mystery-of-metador-an-unattributed-threat-hiding-in-telcos-isps-and-universities/
+logsource:
+    category: dns
+detection:
+    selection:
+        query|contains:
+            - 'networkselfhelp.com'
+            - 'nsauth2.hostingcp.nl'
+            - 'nsauth3.hostingcp.be'
+            - 'nsauth1hostingcp.eu'
+            - 'nsauth4hostingcp.eu'
+            - '5.2.78.14'
+    condition: selection
+falsepositives:
+    - Domain recycled or no longer used by ATP and now legit usage
+tags:
+    - attack.command_and_control
+    - attack.t1571
+level: medium
