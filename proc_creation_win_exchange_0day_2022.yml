@@ -1,0 +1,39 @@
+title: Exchange 0day RCE - August 2022
+id: f131c02d-00c2-4851-b66c-c3e8a55c9f92
+status: test
+description: Searches for IOCs related to the Exchange 0day report in August of 2022
+author: Josh Nickels
+references:
+    - https://gteltsc.vn/blog/warning-new-attack-campaign-utilized-a-new-0day-rce-vulnerability-on-microsoft-exchange-server-12715.html
+date: 2022/09/30
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    file:
+        Image|endswith:
+            - '\Program Files\Microsoft\Exchange Server\V15\FrontEnd\HttpProxy\owa\auth\RedirSuiteServiceProxy.aspx'
+            - '\inetpub\wwwroot\aspnet_client\xml.ashx'
+            - '\Program Files\Microsoft\Exchange Server\V15\FrontEnd\HttpProxy\owa\auth\pxh4HG1v.ashx'
+            - '\errorEE.aspx'
+            - '\DrSDKCaller.exe'
+            - '\Users\Public\all.exe'
+            - '\Users\Public\dump.dll'
+            - '\Users\Public\ad.exe'
+            - '\PerfLogs\gpg-error.exe'
+            - '\PerfLogs\cm.exe'
+            - '\Program Files\Common Files\system\adomsado32.tlb'
+    command:
+        CommandLine|contains:
+            - '[S]&cd&echo [E]'
+    condition: file or command
+falsepositives:
+    - Legitimate administrator activity
+level: critical
+tags:
+    - attack.execution
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.t1059.003
+    - attack.t1047
+    - attack.t1505.003
