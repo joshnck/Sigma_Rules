@@ -1,0 +1,28 @@
+title: DNS Ransom Cartel Ransomware Command and Control
+id: 7bd3902d-8b8b-4dd4-838a-c6862d40150d
+description: Detects IP addresses used by a Ransomware group that is possibly linked to REvil
+status: experimental
+date: 2022/10/18
+author: Josh Nickels
+references:
+    - https://unit42.paloaltonetworks.com/ransom-cartel-ransomware/
+logsource:
+    category: dns
+detection:
+    selection:
+        Query|contains:
+            - 185.143.223.13    # Bulletproof hosting server
+            - 185.239.222.240   # TOR Exit Node
+            - 185.129.62.62     # TOR Exit Node
+            - 185.253.163.23    # PIA VPN Exit Node
+            - 80.85.155.17
+            - 80.85.157.8
+            - 108.62.103.193
+            - 179.43.151.115
+    condition: selection
+falsepositives:
+    - IP addresses are not a reliable source of information and this rule is best used for post-exploitation threat hunting
+level: low
+tags:
+    - attack.command_and_control
+    - attack.t1090.003
