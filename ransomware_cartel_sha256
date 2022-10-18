@@ -1,0 +1,28 @@
+title: Ransomware Cartel SHA256 Hashes
+id: 48984ea7-5108-4143-ba4f-90c9b8d6c539
+description: Detects SHA256 hashes used by a Ransomware group that is possibly linked to REvil
+status: experimental
+date: 2022/10/18S
+author: Josh Nickels
+references:
+    - https://unit42.paloaltonetworks.com/ransom-cartel-ransomware/
+    - https://nitrogenmisp.dcso.de/events/view/44767
+logsource:
+    category: file_delete
+    product: Windows
+detection:
+    selection:
+        SHA256:
+            - 55e4d509de5b0f1ea888ff87eb0d190c328a559d7cc5653c46947e57c0f01ec5
+            - 2411a74b343bbe51b2243985d5edaaabe2ba70e0c923305353037d1f442a91f5
+            - 9935DA29F3E4E503E4A4712379CCD9963A730CCC304C2FEC31E8276DB35E82E8
+            - BF93B029CCA0DE4B6F32E98AEEBD8FD690964816978A0EB13A085A80D4B6BF4E
+            # SHA256 hashes are a high-fidelity detection of an attack but are
+            # easily altered. Chances are if we see these hashes it is post-encryption
+    condition: selection
+falsepositives:
+    - None
+level: critical
+tags:
+    - attack.impact
+    - attack.t1486
