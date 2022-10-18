@@ -1,5 +1,5 @@
 title: DNS Ransom Cartel Ransomware Command and Control
-id: 7bd3902d-8b8b-4dd4-838a-c6862d40150d
+id: 469ad9fe-a532-47c4-9921-fd9d67d46d99
 description: Detects IP addresses used by a Ransomware group that is possibly linked to REvil
 status: experimental
 date: 2022/10/18
