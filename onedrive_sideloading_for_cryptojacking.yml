@@ -1,0 +1,58 @@
+title: OneDrive Side-Loading for Cryptojacking
+id: a9ccf104-df46-48cf-90f3-a7431c2e0436
+description: Detects DLL side-loading vuln in OneDrive used by attackers to execute a cryptojacking attack
+status: experimental
+date: 2022/10/19
+author: Josh Nickels
+references:
+    - https://www.bitdefender.com/files/News/CaseStudies/study/424/Bitdefender-PR-Whitepaper-SLOneDriveCyberJack-creat6318-en-EN.pdf
+logsource:
+    category: Microsoft
+    product: Windows
+detection:
+    dropper:
+        image|contains:
+            - secur32.dll # Malicious dll
+            - "adobe photoshop setup.exe" # reported used name of dropper
+            - Free_Macro_V1.3.exe # reported used name of dropper
+    execution_service:
+        image|contains:
+            - OneDrive.exe # legit process that executes the malicious DLL for persitence
+            - OneDriveStandaloneUpdater.exe # legit process that executes the malicious DLL for persitence
+            - AppLaunch.exe # legit process that executes the malicious DLL for persitence
+    command_line:
+        CommandLine|contains:
+            - "taskkill /IM OneDrive.exe /F" # Command executed by the malicious DLL
+    hash:
+        SHA256:
+            - fed6517a5f84eecc29edee5586d7feeb # malicious secure32.dll
+            - 9b0d09fd16c24a1691fa7e316351399d # malicious secure32.dll
+            - 9b1c1fd2556275a985bb4ce4aba99975 # malicious secure32.dll
+            - ec36e1abbf75584a9d0bb4a15f8f2c33 # malicious secure32.dll
+            - f3af73070387fb75b19286826cc3126c # modified OneDrive.exe
+            - 7de8b8015540bf923385c36f60b9d5ae # dropper
+            - 656a4c1fcc572e855ac2e512c04ae206 # dropper
+            - 7bbeb20cfcabcfa69d668c24a235082e # dropper
+            - 73cef9a93e9572c148a5785434708c41 # dropper
+            - 7c64bb78b589054079a1048f9fc79708 # dropper
+    condition: (droper and execution_service and command_line) or hash
+falsepositives:
+    - none
+level: critical
+tags:
+    - attack.execution
+    - attack.T1204.002
+    - attack.T1106
+    - attack.persistence
+    - attack.T1547.001
+    - attack.defense_evasion
+    - attack.T1574.002
+    - attack.T1055.012
+    - attack.discovery
+    - attack.T1057
+    - attack.T1082
+    - attack.T1614
+    - attack.command_and_control
+    - attack.T1071.001
+    - attack.impact
+    - attack.T1496
