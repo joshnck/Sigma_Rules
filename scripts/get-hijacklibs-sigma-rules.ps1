@@ -31,10 +31,13 @@ foreach ($sigma_string in $hijacks_parsed) {
     $sigma_string_tmp = $sigma_string.split([System.Environment]::NewLine)
     try {
         $sigma_string_tmp = {$sigma_string_tmp}.invoke() ## funny trick to convert to a collection :D
+        $sigma_string_tmp[5] = "author: Wietze Beukema and modified for internal use by Josh Nickels"
         $sigma_string_tmp[6] = $sigma_string_tmp[6].Replace("-","/")
-        $sigma_string_tmp.insert(7, "id: $guid")
+        $sigma_string_tmp.insert(7,"level: low")
+        $sigma_string_tmp.insert(2, "id: $guid")
         $sigma_string_final = ""
         foreach ($substr in $sigma_string_tmp) {
+            $substr=$substr.Replace("c:\","*\")
             $sigma_string_final = $sigma_string_final + "`n" + $substr
         } 
     } catch { Write-Output ("end of file")}
