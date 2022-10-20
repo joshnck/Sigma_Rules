@@ -31,7 +31,7 @@ foreach ($sigma_string in $hijacks_parsed) {
     $sigma_string_tmp = $sigma_string.split([System.Environment]::NewLine)
     try {
         $sigma_string_tmp = {$sigma_string_tmp}.invoke() ## funny trick to convert to a collection :D
-        $sigma_string_tmp[6] = "date: 2022/10/20" # TODO: Convert the actual date instead of being lazy
+        $sigma_string_tmp[6] = $sigma_string_tmp[6].Replace("-","/")
         $sigma_string_tmp.insert(7, "id: $guid")
         $sigma_string_final = ""
         foreach ($substr in $sigma_string_tmp) {
