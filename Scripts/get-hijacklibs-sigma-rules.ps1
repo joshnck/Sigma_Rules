@@ -47,5 +47,5 @@ foreach ($sigma_string in $hijacks_parsed) {
     $file_name = "dll_sideloading_of_$dll"
 
     # output file
-    $sigma_string_final | Out-File -FilePath "C:\Users\a0078531\Documents\Git Workspace\testing\$file_name.yml"
+    $sigma_string_final | Out-File -FilePath "<path>$file_name.yml"
 }
