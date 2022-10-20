@@ -18,6 +18,9 @@ $internal_append_block =
 # GUID to use later
 $guid = [guid]::newGUID()
 
+# your file path
+$path = ""
+
 # Now to do some parsing and string manipulation to get things tidy for our PySigma parser
 foreach ($sigma_string in $hijacks_parsed) {
     # remove the first new line character
@@ -47,5 +50,5 @@ foreach ($sigma_string in $hijacks_parsed) {
     $file_name = "dll_sideloading_of_$dll"
 
     # output file
-    $sigma_string_final | Out-File -FilePath "<path>$file_name.yml"
+    $sigma_string_final | Out-File -FilePath "$path\$file_name.yml"
 }
