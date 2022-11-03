@@ -1,0 +1,30 @@
+title: Winnti and ShadowPad Hash
+id: 788fd186-7539-44b5-94de-9ff4a3b9955a
+status: experimental
+description: Detect Sha256 Hash values of known Winnti and ShadowPad files
+author: Josh Nickels
+date: 2022/11/3
+references:
+    - https://pub-7cb8ac806c1b4c4383e585c474a24719.r2.dev/678b6a1820753ba476409b596830e9a878310ba7.pdf
+logsource:
+    service: process_creation
+    product: windows
+detection:
+    selection:
+        SHA256:
+            - 0a3279bb86ff0de24c2a4b646f24ffa196ee639cc23c64a044e20f50b93bda21 # Winnti 4.0 dat file
+            - 03b7b511716c074e9f6ef37318638337fd7449897be999505d4a3219572829b4 # ShadowPad Variant1
+            - aef610b66b9efd1fa916a38f8ffea8b988c20c5deebf4db83b6be63f7ada2cc0 # ShadowPad Variant2
+            - d011130defd8b988ab78043b30a9f7e0cada5751064b3975a19f4de92d2c0025 # ShadowPad Variant3
+            - 1ded9878f8680e1d91354cbb5ad8a6960efd6ddca2da157eb4c1ef0f0430fd5f # Spyder communicating with the ShadowPad C2
+            - 536def339fefa0c259cf34f809393322cdece06fc4f2b37f06136375b073dff3 # ReverseWindow communicating with the ShadowPad C2
+            - 9447b75af497e5a7f99f1ded1c1d87c53b5b59fce224a325932ad55eef9e0e4a #  ShadowPad Variant1 communicating with the ShadowPad C2
+            # SHA256 hashes are a high-fidelity detection of an attack but are easily altered.
+            # New variations of the malware are not covered with hese rules
+    condition: selection
+falsepositives:
+    - Non-malicious URL or False Positive URL detection by Microsoft
+level: high
+tags:
+    - attack.command_and_control
+    - attack.t1071.001
