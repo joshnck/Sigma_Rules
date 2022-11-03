@@ -23,7 +23,7 @@ detection:
             # New variations of the malware are not covered with hese rules
     condition: selection
 falsepositives:
-    - Non-malicious URL or False Positive URL detection by Microsoft
+    - None
 level: high
 tags:
     - attack.command_and_control
