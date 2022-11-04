@@ -1,0 +1,23 @@
+title: Mega Share for data exfil
+id: 15c7d4f5-5841-45b2-b273-f2aa41e4aff3
+description: Detect Mega Share website access
+status: experimental
+date: 2022/11/04
+author: Josh Nickels
+references:
+- N/A
+logsource:
+    category: proxy
+detection:
+    selection:
+        r-dns|contains:
+            - "mega.io"
+            - "mega.co.nz"
+            - "mega.nz"
+condition: selection
+falsepositives:
+    - Likely none - there should be no traffic to this domain but it is possible someone visits this domain without intending to exfil data
+level: high
+tags:
+    - attack.exfiltration
+    - attack.t1567
