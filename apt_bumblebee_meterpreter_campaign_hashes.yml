@@ -1,0 +1,75 @@
+title: bumblebee meterpreter campaign hashes
+id: a38c5698-896c-4ac0-92f0-c29f4674f4f9
+description: Check for MD5, SHA1, SHA256, and filenames from the bumblebee meterpreter campaign
+status: experimental
+date: 2022/11/07
+author: Josh Nickels
+references:
+    - https://thedfirreport.com/2022/11/14/bumblebee-zeros-in-on-meterpreter/
+    - https://www.virustotal.com/gui/file/3c600328e1085dc73d672d068f3056e79e66bec7020be6ae907dd541201cd167/detection
+logsource:
+    category: file_create
+    product: windows
+detection:
+    sha256:
+        - "3c600328e1085dc73d672d068f3056e79e66bec7020be6ae907dd541201cd167" # documents.lnk.bin
+        - "df63149eec96575d66d90da697a50b7c47c3d7637e18d4df1c24155abacbc12e"
+        - "f7bfde050c81d47d79febdb170f307f447e76253715859727beff889d2a91694"
+        - "da3c4e2b7768d66ecb6c0e74c6d45e2bcfbc6203b76c7163909bd2061603cef5"
+        - "65a9b1bcde2c518bc25dd9a56fd13411558e7f24bbdbb8cb92106abbc5463ecf"
+        - "4bb67453a441f48c75d41f7dc56f8d58549ae94e7aeab48a7ffec8b78039e5cc"
+    sha1:
+        - "38eef0cdaa8faa27c9e2cedeafcfe842e2e0e08e" # documents.lnk.bin
+        - "52d4c0cb9a93e7bc5f1e0c386dcca3e0ac41b966"
+        - "759688d1245aacd0ed067b0f0388786e911aaf28"
+        - "785b660537506501e695e46875b02260649b23f7"
+        - "ccc9e1559b877b04b1d0e7f8920a64b4e35136da"
+        - "fa3649b0472ba7fd9b31a22c904b2de4c008f540"
+        - "fa9597b87f78c667cc006aaa1c647d539aa9b827"
+    md5:
+        - "ee7ad5fe821fb9081380dbbf40c4f062" # documents.lnk.bin
+        - "5d2a8724dbce65eefb7e74fbb0eceda9"
+        - "aeff99611babd41d79c3ba7930f00bc1"
+        - "b3e68aebe05dc652ec65099e0e98b94e"
+        - "bd5c8ea8c231bf2775b9c0ba3f7ea867"
+        - "ea2c1fa8668812852a77737c4f712ba2"
+        - "fbcaa31456f39f996950511705461639"
+condition: selection
+falsepositives:
+    - MD5 hashes can collide with known good files with a low liklihood
+level: high
+tags:
+    - attack.initial_access
+    - attack.execution
+    - attack.persistence
+    - attack.privilege_escalation
+    - attack.defense_evasion
+    - attack.credential_access
+    - attack.discovery
+    - attack.lateral_movement
+    - attack.command_and_control
+    - attack.t1204.002
+    - attack.t1059.003
+    - attack.t1059.001
+    - attack.t1055
+    - attack.t1070.004
+    - attack.t1003.001
+    - attack.t1068
+    - attack.t1570
+    - attack.t1078
+    - attack.t1569.002
+    - attack.t1021.002
+    - attack.t1018
+    - attack.t1057
+    - attack.t1069.002
+    - attack.t1218.011
+    - attack.t1087.002
+    - attack.t1082
+    - attack.t1003.002
+    - attack.t1135
+    - attack.t1550.002
+    - attack.t1553.005
+    - attack.t1548.002
+    - attack.t1071.001
+    - attack.t1566.002
+    - attack.t1036

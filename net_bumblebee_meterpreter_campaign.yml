@@ -1,0 +1,30 @@
+title: Network Activity of BumbleBee Meterpreter Campaign
+id: cabd3068-7a95-4cc8-a48e-347a3229619e
+description: Identifies the network activity reported as part of the 11/2022 Bumblebee campaign
+status: experimental
+date: 2022/11/17
+author: Josh Nickels
+references:
+    - https://thedfirreport.com/2022/11/14/bumblebee-zeros-in-on-meterpreter/
+    - https://www.virustotal.com/gui/file/3c600328e1085dc73d672d068f3056e79e66bec7020be6ae907dd541201cd167/detection
+logsource:
+    category: dns
+detection:
+    ips:
+        - 213.232.235.19
+        - 172.93.201.12
+        - 23.106.215.100
+        - 3.16.159.37
+        - 45.153.243.93
+    domains:
+        query|contains:
+            - cevogesu.com
+            - titojukus.com
+condition: ips or domains
+falsepositives:
+    - Legit traffic due to repurposing of the IPs/Domains
+level: medium
+tags:
+    - attack.command_and_control
+    - attack.t1071
+    - attack.t1102
