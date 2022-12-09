@@ -1,0 +1,42 @@
+title: Truebot 2022 DNS and IP IOCs
+id: e99d1461-e3a3-440d-b7c6-2dbadb607344
+description: New Truebot IOCs as reported by Talos
+status: experimental
+date: 2022/12/09
+author: Josh Nickels
+references:
+    - https://blog.talosintelligence.com/breaking-the-silence-recent-truebot-activity/
+logsource:
+    category: dns
+detection:
+    url:
+        - http://179.60.150.34:80/download/file.ext
+        - http://179.60.150.53:80/download/msruntime.dll
+        - http://179.60.150.53:80/download/GoogleUpdate.dll
+        - http://tddshht.com/chkds.dll
+        - http://nefosferta.com/gate.php
+        - http://185.55.243.110/gate.php
+        - http://gbpooolfhbrb.com/gate.php
+        - http://88.214.27.100/gate.php
+        - http://hiperfdhaus.com/gate.php
+        - http://88.214.27.101/gate.php
+        - http://jirostrogud.com/gate.php
+    ip:
+        - 45.227.253.102
+        - 179.60.150.34
+        - 185.55.243.110
+        - 88.214.27.100
+    condition: url or ip
+falsepositives:
+    - Reuse of IPs
+level: high
+tags:
+    - attack.initial_access
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.credential_access
+    - attack.collection
+    - attack.discovery
+    - attack.lateral_movement
+    - attack.command_and_control
+    - attack.impact

@@ -1,0 +1,29 @@
+title: Truebot 2022 Hashs
+id: 48a9cc91-73d7-43da-b489-e1aa126b0d32
+description: New Truebot IOCs as reported by Talos
+status: experimental
+date: 2022/12/09
+author: Josh Nickels
+references:
+    - https://blog.talosintelligence.com/breaking-the-silence-recent-truebot-activity/
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    hash:
+        - 27b6e71b4adeada41fb1e411a910872bfad999183d9d43ba6e63602e104d357b # Grace remote access tool
+        - dd94c2fc46a6670b4600cf439b35dc81a401b09d2c2372139afe7b754d1d24d4 # Data exfiltration tool
+    condition: hash
+falsepositives:
+    - Reuse of IPs
+level: high
+tags:
+    - attack.initial_access
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.credential_access
+    - attack.collection
+    - attack.discovery
+    - attack.lateral_movement
+    - attack.command_and_control
+    - attack.impact

