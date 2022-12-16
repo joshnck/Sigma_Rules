@@ -1,0 +1,22 @@
+title: SocGholish File Download
+id: 6ee6066c-6ce5-4242-b16f-3970b2afe95c
+description: Finds the unique string identified in SocGholish download files
+status: experimental
+date: 2022/12/16
+author: Tomasz Dyduch and Josh Nickels
+references:
+    - https://www.proofpoint.com/us/blog/threat-insight/part-1-socgholish-very-real-threat-very-fake-update
+logsource:
+    category: file_create
+    product: windows
+detection:
+    selection:
+      TargetFileName|contains:
+          -  "dat\\ufffd\\ufffd.zip"
+    condition: selection
+falsepositives:
+    - Unlikely
+level: critical
+tags:
+    - attack.execution
+    - attack.t1204
