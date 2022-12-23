@@ -1,0 +1,26 @@
+title: HTML Attachment in Email
+id: 8540b9c6-4f7a-4521-b04f-c68d1f71eabd
+description: HTM and HTML attachments found in an O365 email
+status: experimental
+date: 2022/12/23
+author: Josh Nickels
+references:
+    - https://asec.ahnlab.com/en/44662/
+    - https://news.trendmicro.com/2022/10/31/html-email-attachments-phishing-scam/
+    - https://www.avanan.com/blog/phishing-trend-targeting-office-365-uses-html-attachments
+logsource:
+    category: AdvancedHunting
+    service: EmailAttachmentInfo
+    product: m365
+detection:
+    selection:
+        FileType:
+          - "html"
+          - "htm"
+    condition: selection
+falsepositives:
+    - Legitimate buisness need for .htm and .html attachment types
+level: low
+tags:
+    - attack.initial_access
+    - attack.t1566.001

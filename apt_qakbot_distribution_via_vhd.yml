@@ -1,0 +1,32 @@
+title: Qakbot Distribution via VHD
+id: 89a12b6b-08ec-4cbb-a585-f21ceebef185
+description: Qakbot being distrubted via phishing with HTML attachment unpacking to VHD file
+status: experimental
+date: 2022/12/23
+author: Josh Nickels
+references:
+    - https://asec.ahnlab.com/en/44662/
+logsource:
+    category: file_event
+    product: windows
+detection:
+    selection1:
+        MD5Hash:
+            - "ab4c2e5302c44ddc16f5fe4162640bd0"
+            - "5bd4a0f37a6420a00e1ceb378446f8b8"
+            - "1c1deaa10c6beea64661e8afba6ce276"
+            - "63524b4118710e4d6d522b0165d71b71"
+            - "5cbd45a04efdec84a576398e8ed702e6"
+    selection2:
+        FileName:
+            - "resting.cmd"
+            - "hogs.tmp"
+    condition: selection1 or selection2
+falsepositives:
+    - Legitimate files with the resting.cmd or hogs.tmp file names
+level: medium
+tags:
+    - attack.initial_access
+    - attack.t1566.001
+    - attack.defense_evasion
+    - attack.t1553.005
