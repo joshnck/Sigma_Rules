@@ -21,7 +21,7 @@ detection:
         FileName:
             - "resting.cmd"
             - "hogs.tmp"
-    condition: selection*
+    condition: selection1 or selection2
 falsepositives:
     - Legitimate files with the resting.cmd or hogs.tmp file names
 level: medium
