@@ -1,0 +1,40 @@
+title: LNK File Spawning LOLBin from Root of Drive
+id: c73c2149-b91b-4fe1-baac-a6b5dcecfbce
+description: Looks for .lnk files spawning a windows LOLBin application
+status: experimental
+date: 2023/01/30
+author: Josh Nickels + Tomasz Dyduch + Stefan Lubienetzki
+references:
+    - https://redcanary.com/blog/raspberry-robin/
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+        sourcetype|startswith: ProcessRollup2V
+    selection2:
+        FileName:
+            - "cmd.exe"
+            - "powershell.exe"
+            - "pwsh.exe"
+            - "wscript.exe" 
+            - "cscript.exe" 
+            - "sh.exe" 
+            - "bash.exe" 
+            - "reg.exe" 
+            - "regsvr32.exe" 
+            - "mshta.exe" 
+            - "rundll32.exe"
+    selection3:
+        LinkName|endswith: ".lnk"
+    filter:
+        LinkName: "*\\\\*\\\\*"
+    condition: (selection1 and selection2 and selection3) and not filter
+falsepositives:
+    - Valid .lnk files in the root of a directory
+level: medium
+tags:
+    - attack.initial_access
+    - attack.t1091
+    - attack.execution
+    - attack.t1059
