@@ -13,11 +13,19 @@ logsource:
     service: EmailAttachmentInfo
     product: m365
 detection:
-    selection:
-        FileType:
-          - "html"
-          - "htm"
-    condition: selection
+    selection1:
+        sourcetype:
+            - "AdvancedHunting:EmailAttachmentInfo"
+            - "AdvancedHunting:EmailEvents"
+    selection2:
+        - "html"
+        - "htm"
+    selection3:
+        - "Delivered"
+    filter:
+        - "Delivered as Spam"
+        - "Blocked"
+    condition: (selection1 and selection2 and selection3) and not filter
 falsepositives:
     - Legitimate buisness need for .htm and .html attachment types
 level: low
