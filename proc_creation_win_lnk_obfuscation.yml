@@ -1,0 +1,32 @@
+title: LNK File Spawning Obfuscated CMD Call
+id: a004e665-4531-41ce-a813-8ef7144d7ae2
+description: LNK Files found in some malware samples 
+status: experimental
+date: 2023/02/06
+author: Josh Nickels + Stefan Lubientzski
+references:
+    - https://redcanary.com/blog/raspberry-robin/
+logsource:
+    category: process_creation
+    product: windows
+detection:
+    selection1:
+        LinkName|endswith: ".lnk"
+    selection2:
+        CommandLine|contains:
+            - "\\r"
+            - "\\n"
+            - "\\f"
+            - "\\t"
+    selection3:
+        CommandLine|re: "[^\\\\]\\\\[rnft]"
+    filter:
+        CommandLine|contains:
+            - "Geomagic"
+    condition: all of selection* and not filter
+falsepositives:
+    - Legit LNK files that include special characters in their commands
+level: medium
+tags:
+    - attack.execution
+    - attack.t1204.001
