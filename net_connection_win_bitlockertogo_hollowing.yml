@@ -13,11 +13,11 @@ logsource:
     category: network_connection
     product: windows
 detection:
-    selection:
+    selection_image:
         Image: 'bitlockertogo.exe'
     selection_init:
         Initiated: 'true'
-    condition: selection and 1 of selection_*
+    condition: all of 1 of selection_*
 falsepositives:
     - Unknown
 level: low
