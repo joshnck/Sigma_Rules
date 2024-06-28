@@ -14,7 +14,7 @@ logsource:
     product: windows
 detection:
     selection:
-        Image|: 'bitlockertogo.exe'
+        Image: 'bitlockertogo.exe'
     selection_init:
         Initiated: 'true'
     condition: selection and 1 of selection_*
